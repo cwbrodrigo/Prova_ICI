@@ -1,0 +1,15 @@
+﻿@model ProvaCandidato.Data.Entidade.Cidade
+@{
+    ViewBag.Title = "Insert";
+}
+
+<h2 style="margin-left: 30px;margin-bottom: 50px;">Inserir nova cidade</h2>
+
+@using (Html.BeginForm("Insert", "Cidade", FormMethod.Post, new { style = "margin-bottom:300px;" }))
+{
+    <div class="col-md-8">
+        <div class="col-md-5">@Html.TextBoxFor(x => x.Nome, new { @class = "form-control"})</div>
+        <div class="col-md-3"><button type="submit" class="btn btn-info">Cadastrar</button></div>
+    </div>
+}
+

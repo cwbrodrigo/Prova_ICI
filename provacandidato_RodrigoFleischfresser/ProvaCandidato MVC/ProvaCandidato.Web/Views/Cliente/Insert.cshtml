@@ -1,0 +1,58 @@
+﻿@model ProvaCandidato.Data.Entidade.Cliente
+@{
+    ViewBag.Title = "Inserir cliente";
+}
+<h2 style="margin-left: 30px;margin-bottom: 50px;">Inserir cliente</h2>
+
+@using (Html.BeginForm("Insert", "Cliente", FormMethod.Post))
+{
+    <div class="col-lg-12" style="margin-bottom:300px">
+        <div class="form-group col-md-6">
+            @Html.DisplayName("Nome")
+            @Html.TextBoxFor(x => x.Nome, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Nome, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.DisplayName("Data de Nascimento")
+            @Html.TextBoxFor(x => x.DataNascimento, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.DataNascimento, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="dropdown col-md-6">
+            <select class="city form-control" id="city" name="CidadeId">
+            </select>
+        </div>
+
+        <div class="form-check">
+            @Html.CheckBoxFor(x => x.Ativo, new { style = "margin-left: 15px;margin-top: 20px;" }) Ativo
+        </div>
+
+        <div class="col-md-3 float-right" style="margin-left: 980px;">
+            <button type="submit" class="btn btn-info">Cadastrar</button>
+        </div>
+    </div>
+
+}
+
+<script>
+    $(document).ready(function () {
+
+        $.ajax({
+            type: "GET",
+            url: "/Cliente/GetCidades",
+            data: "{}",
+            success: function (data) {
+                console.log(data);
+                var s = '<option value="0">Selecione a Cidade</option>';
+                for (var i = 0; i < data.length; i++) {
+                    s += '<option value="' + data[i].Codigo + '">' + data[i].Nome + '</option>';
+                }
+                $("#city").html(s);
+            },error: function () {
+                alert('ops');
+            }
+        });
+    });
+
+</script>

@@ -1,0 +1,42 @@
+﻿@model ProvaCandidato.Models.ClienteViewModel
+<head>
+    <link href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" rel="stylesheet">
+</head>
+@using (Html.BeginForm("Insert", "Cliente", FormMethod.Get))
+{
+    <div class="col-lg-12">
+        <button class="btn btn-success float-right" title="Adicionar Cliente" style="margin-left: 1010px;margin-bottom: 40px;height: 50px;width: 50px;"><i class="fas fa-plus"></i></button>
+    </div>
+}
+
+@if (TempData["UserMessage"] != null)
+{
+    TempData["UserMessage"].ToString();
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-center">Código</th>
+            <th>Nome</th>
+            <th>Data de Nascimento</th>
+            <th>Cidade</th>
+            <th>Ativo</th>
+            <th class="text-right">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ClienteViewModels)
+        {
+            <tr>
+                <td>@item.CidadeId</td>
+                <td> @item.Nome</td>
+                <td> @item.DataNascimento.ToShortDateString().ToString()</td>
+                <td> @item.Cidade.Nome</td>
+                <td> @(item.Ativo == true ? "Sim" : "Não")</td>
+                <td><button class="btn btn-success" href="/Cliente/Update/@item.Codigo"><i class="fas fa-user-edit"></i></button></td>
+                <td><button class="btn btn-danger" href="/Cliente/Delete/@item.Codigo"><i class="fas fa-user-times"></i></button></td>
+            </tr>
+        }
+    </tbody>
+</table>
